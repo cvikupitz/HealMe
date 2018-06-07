@@ -1,0 +1,33 @@
+<div style="width: 300px" class="p-5 mx-auto hermes">
+
+  <div class="">
+
+    <label class="mt-5"> Injury/Ailement
+      <br>
+      <input [(ngModel)]="injury">
+    </label>
+    <br>
+
+    <label> Maximum Cost (optional)
+      <br>
+      <input [(ngModel)]="maxCost" placeholder="none">
+    </label>
+    <br>
+
+    <label> Zipcode
+      <br>
+      <input [(ngModel)]="zipcode" placeholder="zip">
+    </label>
+    <br>
+
+    <label> Maximum distance (optional)
+      <br>
+      <input [(ngModel)]="maxDistance" placeholder="none">
+    </label>
+    <br>
+
+    <br>
+    <button (click)="submit()">Submit</button>
+
+  </div>
+</div>

@@ -1,0 +1,10 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+.hermes {
+    padding-top: 37px;
+    padding-right:3px;
+    height: 356px;
+    background: url('/assets/hermes.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
