@@ -1,20 +1,35 @@
-<table class="table table-bordered table-hover text-center">
-  <thead>
-    <tr>
-      <td></td>
-      <td>Hospital</td>
-      <td>Address</td>
-      <td>Distance</td>
-      <td *ngFor="let injury of injuries">{{injury}}</td>
-    </tr>
-  </thead>
-  <tbody style="cursor:pointer">
-    <tr *ngFor="let h of hospitals">
-      <td>{{h.id}}</td>
-      <td>{{h.name}}</td>
-      <td>{{h.address}}</td>
-      <td>{{h.distance}}mi</td>
-      <td *ngFor="let t of h.treatments">${{t.cost}}</td>
-    </tr>
-  </tbody>
-</table>
+<div id="resultsTableStart">
+
+  <table id="results-table" class="table table-bordered table-hover text-center">
+    <thead>
+      <tr>
+        <td></td>
+        <td>Hospital</td>
+        <td>Address</td>
+        <td id="distanceHeader" style="min-width: 6rem">
+          Distance
+          <img *ngIf="check('distanceHeader', 'sorting_asc') || check('distanceHeader', 'sorting')" src="assets/glyphicons-213-arrow-down.png"
+            style="height: 0.5rem; width: 0.5rem;">
+          <img *ngIf="check('distanceHeader', 'sorting_desc') || check('distanceHeader', 'sorting')" src="assets/glyphicons-213-arrow-down.png"
+            src="assets/glyphicons-214-arrow-up.png" style="height: 0.5rem; width: 0.5rem;">
+        </td>
+        <td *ngFor="let injury of injuries" id="{{injury.replace(' ', '')}}Header" style="min-width: 6rem">
+          {{injury}}
+          <img *ngIf="check(injury.replace(' ', '') + 'Header', 'sorting_asc') || check(injury.replace(' ', '') + 'Header', 'sorting')"
+            src="assets/glyphicons-213-arrow-down.png" style="height: 0.5rem; width: 0.5rem;">
+          <img *ngIf="check(injury.replace(' ', '') + 'Header', 'sorting_desc') || check(injury.replace(' ', '') + 'Header', 'sorting')"
+            src="assets/glyphicons-213-arrow-down.png" src="assets/glyphicons-214-arrow-up.png" style="height: 0.5rem; width: 0.5rem;">
+        </td>
+      </tr>
+    </thead>
+    <tbody style="cursor:pointer">
+      <tr *ngFor="let h of hospitals">
+        <td>{{h.id}}</td>
+        <td>{{h.name}}</td>
+        <td>{{h.address}}</td>
+        <td>{{h.distance}}mi</td>
+        <td *ngFor="let t of h.treatments">${{t.cost}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

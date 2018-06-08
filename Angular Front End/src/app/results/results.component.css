@@ -1,1 +1,14 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+.sorting_asc::after {
+    content: "" !important;
+}
+
+.sorting_desc::after {
+    content:"" !important;
+}
+
+.sorting::after {
+    content:"" !important;
+}
+
