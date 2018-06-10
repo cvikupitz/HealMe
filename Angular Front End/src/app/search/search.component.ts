@@ -14,13 +14,21 @@ export class SearchComponent implements OnInit {
   zipcode = '';
   maxDistance: number;
 
+  invalidZipcode = false;
+
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   submit() {
-    this.router.navigateByUrl('results');
+    this.invalidZipcode = !(this.zipcode.length === 0 ||
+      (this.zipcode.length === 5 && this.zipcode.match('[0-9][0-9][0-9][0-9][0-9]') != null));
+
+
+    if (!this.invalidZipcode) {
+      this.router.navigateByUrl('results');
+    }
   }
 
 }

@@ -2,6 +2,10 @@
 
   <div class="">
 
+    <div *ngIf="invalidZipcode" id="zipcodeError" class="text-danger p-2 pb-0 border border-dark rounded bg-white">
+      <label>Please enter a valid zipcode.</label>
+    </div>
+
     <label class="mt-5"> Injury/Ailement
       <br>
       <input [(ngModel)]="injury">
