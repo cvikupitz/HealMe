@@ -9,22 +9,31 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
-  injury = '';
+  injury = 'Broken leg';
   maxCost: number;
   zipcode = '';
   maxDistance: number;
+
+  injuries: string[] = [
+    'Broken leg',
+    'Compound fracture',
+    'Repatitive strain injury',
+    'Burn, 1st degree',
+    'Burn, 2nd degree',
+    'Burn, 3rd degree'
+  ];
 
   invalidZipcode = false;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
+    $('#searchForm').submit((e) => this.submit(e));
   }
 
-  submit() {
+  submit(e) {
     this.invalidZipcode = !(this.zipcode.length === 0 ||
       (this.zipcode.length === 5 && this.zipcode.match('[0-9][0-9][0-9][0-9][0-9]') != null));
-
 
     if (!this.invalidZipcode) {
       this.router.navigateByUrl('results');
