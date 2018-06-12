@@ -1,0 +1,24 @@
+<div style="width: 450px" class="mx-auto hermes">
+
+  <form class="standalone" id="loginForm" action="search">
+    <div class="text-danger text-center mt-2" style="height: 5rem;"></div>
+    <label class="">
+      Username
+      <span *ngIf="attempted && !username" class="text-danger d-inline-block float-right">Please enter a username</span>
+    </label>
+    <input [(ngModel)]="username" placeholder="Username" class="form-control" name="username" id="username" required>
+
+    <label class="mt-2">
+      Password
+      <span *ngIf="attempted && !password" class="text-danger d-inline-block float-right">Please enter a password.</span>
+    </label>
+    <input [(ngModel)]="password" type="password" placeholder="Password" class="form-control" name="password" id="password" required>
+
+    <div class="text-danger mt-2" style="height: 5rem;">&nbsp;
+      <span *ngIf="invalidCredentials">Invalid username/password</span>
+    </div>
+
+    <input type="submit" class="btn-primary btn mx-auto d-block mt-2" value="Login">
+
+  </form>
+</div>

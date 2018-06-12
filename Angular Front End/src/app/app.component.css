@@ -1,6 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-h1 {
+.h1 {
     font-size: 24pt;
     font-family: 'Times New Roman', Times, serif;
 }
