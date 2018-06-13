@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
+import { User } from '../user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +15,7 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
 
-  constructor() { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     $('#loginForm').submit((e) => this.submit(e));
@@ -34,7 +37,15 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.username && this.password) {
+      this.userService.login(this.username, this.password).subscribe((u: User) => this.checkLogin(u));
+    }
+  }
+
+  checkLogin(u: User) {
+    if (u === null) {
       this.invalidCredentials = true;
+    } else {
+      this.router.navigateByUrl('home');
     }
   }
 
