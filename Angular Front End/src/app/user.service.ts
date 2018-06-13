@@ -12,6 +12,7 @@ export class UserService {
   constructor() { }
 
   getUser(): User {
+    console.log('here');
     return this.user;
   }
 

@@ -1,31 +1,38 @@
 <div style="width: 450px" class="mx-auto hermes">
   <!--TODO: May want to use bootstrap .col instead of static px for column width for responsiveness -->
 
+  <div style="height: 2rem;"></div>
+
   <form class="standalone" id="registerForm">
-    <label class="mt-2">
+
+    <label>
       Username
     </label>
     <input [(ngModel)]="username" placeholder="Username" class="form-control" name="username" id="username" required>
-    <label class="mt-2">
+
+    <label>
       Password
     </label>
     <input [(ngModel)]="password" type="password" placeholder="Password" class="form-control" name="password" id="password" required>
-    <label class="mt-2">
+
+    <label>
       E-mail Address
     </label>
     <input [(ngModel)]="email" type="email" placeholder="E-mail" class="form-control" name="email" id="email" required>
+
     <label>
       Insurance
     </label>
-    <select>
+    <select class="custom-select">
       <option class="form-control" *ngFor="let insurance of insurances" [ngValue]="insurance.id"> {{ insurance.name }} </option>
     </select>
+
     <label>
       Address
     </label>
-      <input [(ngModel)]="address" placeholder="Address" class="form-control" name="address" id="address" required>
-  
-      <input type="submit" id="registerBtn" class="btn-primary btn mx-auto d-block mt-2" value="Register">
-    </form>
+    <input [(ngModel)]="address" placeholder="Address" class="form-control" name="address" id="address" required>
+
+    <input type="submit" id="registerBtn" class="btn-primary btn mx-auto d-block mt-5" value="Register">
+  </form>
 
 </div>
