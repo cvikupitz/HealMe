@@ -17,7 +17,7 @@ DROP USER healme_admin CASCADE;
  * Create the user/database & credentials
  */
 CREATE USER healme_admin
-IDENTIFIED BY p4ssw0rd123   -- Change as needed
+IDENTIFIED BY 89^Kp9kHx4%4G4Jh&7gH 
 DEFAULT TABLESPACE users
 TEMPORARY TABLESPACE temp
 QUOTA 10M ON users;
@@ -32,7 +32,7 @@ GRANT CREATE SESSION TO healme_admin;
 GRANT CREATE TABLE TO healme_admin;
 GRANT CREATE VIEW TO healme_admin;
 
-conn healme_admin/p4ssw0rd123
+conn healme_admin/89^Kp9kHx4%4G4Jh&7gH
 
 
 /*
