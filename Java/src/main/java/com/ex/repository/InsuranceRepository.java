@@ -8,4 +8,6 @@ import com.ex.beans.Insurance;
 @Repository
 public interface InsuranceRepository extends JpaRepository<Insurance, Integer> {
 	
+	public Insurance findByName(String name);
+	
 }

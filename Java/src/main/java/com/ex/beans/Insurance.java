@@ -23,7 +23,13 @@ public class Insurance {
 	@Column(unique = true, nullable = false)
 	private String name;
 
-	public int getId() {
+	public Insurance() { }
+	
+	public Insurance(String name) {
+		this.name = name;
+	}
+	
+	public Integer getId() {
 		return id;
 	}
 

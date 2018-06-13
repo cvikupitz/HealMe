@@ -10,6 +10,15 @@ public class Address {
 	private String state;
 	private String zip;
 	
+	public Address() { }
+	
+	public Address(String address2, String zipcode, String city2, String state2) {
+		address = address2;
+		zip = zipcode;
+		city = city2;
+		state = state2;
+	}
+	
 	public String getAddress() {
 		return address;
 	}

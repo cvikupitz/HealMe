@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ex.beans.Address;
 import com.ex.beans.User;
+import com.ex.repository.InsuranceRepository;
 import com.ex.service.UserService;
 import com.google.gson.Gson;
 
@@ -18,11 +20,16 @@ public class RegisterController {
 	@Autowired
 	private UserService users;
 	
+	@Autowired
+	private InsuranceRepository insurances;
+	
 	@RequestMapping(value="/register", method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String register(String username, String email, String password, HttpSession session) {
+	public String register(String username, String email, String password, String insurance, String city, String state, String zipcode, String address, HttpSession session) {
 		
 		User u = new User(username, email, password);
+		u.setInsurance(insurances.findByName(insurance));
+		u.setAddress(new Address(address, zipcode, city, state));
 		u = users.register(u);
 		
 		if (u != null) {
