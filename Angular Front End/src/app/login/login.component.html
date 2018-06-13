@@ -1,18 +1,25 @@
 <div style="width: 450px" class="mx-auto hermes">
 
   <form class="standalone" id="loginForm" action="search">
-    <div class="text-danger text-center mt-2" style="height: 5rem;"></div>
-    <label class="">
+    <div style="height: 5rem;"></div>
+
+    <label class="mt-2">
       Username
-      <span *ngIf="attempted && !username" class="text-danger d-inline-block float-right">Please enter a username</span>
+      <span *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)" class="text-danger d-inline-block float-right">
+        Please enter a username
+      </span>
     </label>
-    <input [(ngModel)]="username" placeholder="Username" class="form-control" name="username" id="username" required>
+    <input [(ngModel)]="username" [class.is-invalid]="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)"
+      #usernameInput="ngModel" name="username" required placeholder="Username" class="form-control">
 
     <label class="mt-2">
       Password
-      <span *ngIf="attempted && !password" class="text-danger d-inline-block float-right">Please enter a password.</span>
+      <span *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-danger d-inline-block float-right">
+        Please enter a password.
+      </span>
     </label>
-    <input [(ngModel)]="password" type="password" placeholder="Password" class="form-control" name="password" id="password" required>
+    <input [(ngModel)]="password" type="password" placeholder="Password" class="form-control" #passwordInput="ngModel" [class.is-invalid]="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+      name="password" required>
 
     <div class="text-danger mt-2" style="height: 5rem;">&nbsp;
       <span *ngIf="invalidCredentials">Invalid username/password</span>

@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   invalidCredentials = false;
-  attempted = false;
   username: string;
   password: string;
 
@@ -22,20 +21,6 @@ export class LoginComponent implements OnInit {
   }
 
   submit(e) {
-    this.attempted = true;
-
-    if (!this.username) {
-      $('#username').addClass('is-invalid');
-    } else {
-      $('#username').removeClass('is-invalid');
-    }
-
-    if (!this.password) {
-      $('#password').addClass('is-invalid');
-    } else {
-      $('#password').removeClass('is-invalid');
-    }
-
     if (this.username && this.password) {
       this.userService.login(this.username, this.password).subscribe((u: User) => this.checkLogin(u));
     }
@@ -49,4 +34,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  touched(id: string): boolean {
+    return $(`#${id}`).hasClass('ng-dirty');
+  }
 }
