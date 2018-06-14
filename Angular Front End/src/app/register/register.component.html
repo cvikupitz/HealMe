@@ -2,37 +2,87 @@
   <!--TODO: May want to use bootstrap .col instead of static px for column width for responsiveness -->
 
   <div style="height: 2rem;"></div>
+  <div class="container">
+    <form class="standalone" id="registerForm">
+      <div class="row">
+        <div class="col-lg-6">
+          <label class="mt-2">
+            First Name
+            <span *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)" class="text-danger d-inline-block float-right">
+              Please enter your first name
+            </span>
+          </label>
+          <input [(ngModel)]="firstName" #firstNameInput="ngModel" [class.is-invalid]="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)"
+            placeholder="First Name" class="form-control" name="firstName" id="firstName" required pattern="[a-zA-Z]+">
+          <label class="mt-2">
+            Last Name
+            <span *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)" class="text-danger d-inline-block float-right">
+              Please enter your last name
+            </span>
+          </label>
+          <input [(ngModel)]="lastName" #lastNameInput="ngModel" [class.is-invalid]="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)"
+            placeholder="Last Name" class="form-control" name="lastName" id="lastName" required pattern="[a-zA-Z]+">
+          <label class="mt-2">
+            E-mail Address
+            <span *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="text-danger d-inline-block float-right">
+              Please enter a valid e-mail
+            </span>
+          </label>
+          <input [(ngModel)]="email" type="email" placeholder="E-mail" class="form-control" name="email" id="email" email #emailInput="ngModel"
+            [class.is-invalid]="emailInput.invalid && (emailInput.dirty || emailInput.touched)" required pattern="^[^@]+@[^@]+\.[^@]+$">
 
-  <form class="standalone" id="registerForm">
+          <label class="mt-2">
+            Insurance
+          </label>
+          <select class="custom-select">
+            <option class="form-control" *ngFor="let insurance of insurances" [ngValue]="insurance.id"> {{ insurance.name }} </option>
+          </select>
 
-    <label>
-      Username
-    </label>
-    <input [(ngModel)]="username" placeholder="Username" class="form-control" name="username" id="username" required>
+          <label class="mt-2">
+            Address
+            <span *ngIf="addressInput.invalid && (addressInput.dirty || addressInput.touched)" class="text-danger d-inline-block float-right">
+                Please enter an address
+              </span>
+          </label>
+          <input [(ngModel)]="address" #addressInput="ngModel" placeholder="Address" class="form-control" name="address" id="address"
+            [class.is-invalid]="addressInput.invalid && (addressInput.dirty || addressInput.touched)" required>
+          <label class="mt-2">
+            Zip Code
+            <span *ngIf="zipCodeInput.invalid && (zipCodeInput.dirty || zipCodeInput.touched)" class="text-danger d-inline-block float-right">
+                Please enter a valid zip code
+              </span>
+          </label>
+          <input [(ngModel)]="zipCode" #zipCodeInput="ngModel" pattern="\d*" class="form-control" name="zipCode" id="zipCode" maxlength="5" width="5" required pattern="^\d{5}$">
+          <label>
+            State
+          </label>
+          <select class="custom-select">
+            <option class="form-control" *ngFor="let state of usStates" [ngValue]="state"> {{ state }} </option>
+          </select>
+        </div>
+        <div class="col-lg-6">
+          <label class="mt-2">
+            Username
+            <span *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)" class="text-danger d-inline-block float-right">
+              Please enter a username
+            </span>
+          </label>
+          <input [(ngModel)]="username" [class.is-invalid]="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)"
+            placeholder="Username" class="form-control" name="username" id="username" #usernameInput="ngModel" required>
 
-    <label>
-      Password
-    </label>
-    <input [(ngModel)]="password" type="password" placeholder="Password" class="form-control" name="password" id="password" required>
+          <label>
+            Password
+            <span *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-danger d-inline-block float-right">
+                Password must contain 8 characters, letter, number, and special character
+              </span>
+          </label>
+          <input [(ngModel)]="password" #passwordInput="ngModel" type="password" placeholder="Password" class="form-control" name="password" id="password" 
+          [class.is-invalid]="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+            required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"> <!-- may need to further test this regexp for password -->
+          <input type="submit" id="registerBtn" class="btn-primary btn mx-auto d-block mt-5" value="Register">
+        </div>
 
-    <label>
-      E-mail Address
-    </label>
-    <input [(ngModel)]="email" type="email" placeholder="E-mail" class="form-control" name="email" id="email" required>
-
-    <label>
-      Insurance
-    </label>
-    <select class="custom-select">
-      <option class="form-control" *ngFor="let insurance of insurances" [ngValue]="insurance.id"> {{ insurance.name }} </option>
-    </select>
-
-    <label>
-      Address
-    </label>
-    <input [(ngModel)]="address" placeholder="Address" class="form-control" name="address" id="address" required>
-
-    <input type="submit" id="registerBtn" class="btn-primary btn mx-auto d-block mt-5" value="Register">
-  </form>
-
+      </div>
+    </form>
+  </div>
 </div>

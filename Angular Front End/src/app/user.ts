@@ -9,14 +9,14 @@ export class User {
     constructor() { }
 }
 
-class Address {
+export class Address {
     address: string;
     zipcode: string;
     state: string;
     city: string;
 }
 
-class Insurance {
+export class Insurance {
     id: number;
     name: string;
 }
