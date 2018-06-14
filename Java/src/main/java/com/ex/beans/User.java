@@ -30,6 +30,10 @@ public class User {
 	@Column(unique = true, nullable = false)
 	private String email;
 	
+	private String firstName;
+	
+	private String lastName;
+	
 	@ManyToOne
 	private Insurance insurance;
 	
@@ -78,5 +82,21 @@ public class User {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }

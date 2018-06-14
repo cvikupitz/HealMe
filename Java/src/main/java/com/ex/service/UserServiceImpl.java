@@ -18,21 +18,27 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User login(String username, String password) {
+		username = username.toLowerCase();
 		return repo.findByUsernameAndPassword(username, Hash.hash(password + username));
 	}
 
 	@Override
 	public User register(User u) {
 		
-		if (repo.findByUsername(u.getUsername()) != null) {
-			return null;
-		}
-		
 		if (u.getEmail() == null || u.getUsername() == null || u.getPassword() == null) {
 			return null;
 		}
 		
+		u.setUsername(u.getUsername().toLowerCase());
+		u.setEmail(u.getEmail().toLowerCase());
+		
+		if (repo.findByUsername(u.getUsername()) != null || repo.findByEmail(u.getEmail()) != null) {
+			return null;
+		}
+		
 		u.setPassword(Hash.hash(u.getPassword() + u.getUsername()));
+
+		System.out.println("Registering, " + u.getUsername() + ", " + u.getEmail());
 		
 		return repo.save(u);			
 	}

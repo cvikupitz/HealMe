@@ -1,15 +1,16 @@
 package com.ex.controllers;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ex.beans.Address;
 import com.ex.beans.User;
 import com.ex.repository.InsuranceRepository;
 import com.ex.service.UserService;
@@ -23,15 +24,17 @@ public class RegisterController {
 	
 	@Autowired
 	private InsuranceRepository insurances;
-
-	@CrossOrigin(origins="http://localhost:4200")
+	
 	@RequestMapping(value="/register", method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String register(String username, String email, String password, String insurance, String city, String state, String zipcode, String address, HttpSession session) {
+	public String register(HttpSession session, @RequestBody String body) {
 		
-		User u = new User(username, email, password);
-		u.setInsurance(insurances.findByName(insurance));
-		u.setAddress(new Address(address, zipcode, city, state));
+		User u = new Gson().fromJson(body, User.class);
+
+		if (u.getInsurance() != null) {
+			u.setInsurance(insurances.findByName(u.getInsurance().getName()));			
+		}
+		
 		u = users.register(u);
 		
 		if (u != null) {
@@ -40,4 +43,9 @@ public class RegisterController {
 		
 		return new Gson().toJson(u);
 	}
+	
+	@ModelAttribute
+	public void setVaryResponseHeader(HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+	} 
 }
