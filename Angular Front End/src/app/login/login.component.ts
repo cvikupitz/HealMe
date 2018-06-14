@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     if (u === null) {
       this.invalidCredentials = true;
     } else {
+      this.userService.user = u;
       this.router.navigateByUrl('home');
     }
   }

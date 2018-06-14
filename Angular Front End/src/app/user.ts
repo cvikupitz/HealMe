@@ -1,12 +1,17 @@
 export class User {
     id: number;
     email: string;
+    firstName: string;
+    lastName: string;
     insurance: Insurance;
     username: string;
     password: string;
     address: Address;
 
-    constructor() { }
+    constructor() {
+        this.address = new Address();
+        this.insurance = new Insurance;
+    }
 }
 
 export class Address {

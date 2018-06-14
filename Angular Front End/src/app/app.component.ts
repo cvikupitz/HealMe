@@ -14,8 +14,10 @@ export class AppComponent {
   constructor(private userService: UserService, private router: Router) { }
 
   logout() {
-    this.userService.user = null;
-    this.router.navigateByUrl('home');
+    this.userService.logout().subscribe((u) => {
+      this.userService.user = u;
+      this.router.navigateByUrl('home');
+    });
   }
 
 }
