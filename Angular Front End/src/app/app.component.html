@@ -1,9 +1,9 @@
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand mr-5 pr-5 p-0" routerLink="/home">Home</a>
   <a class="navbar-brand mx-auto h1 mb-0 p-0" routerLink="/home">HEAL ME</a>
-  <a class="navbar-brand p-0" routerLink="/login">Login</a>
-  <a class="navbar-brand p-0" routerLink="/register">Register</a>
-  <a *ngIf="user" class="navbar-brand p-0" routerLink="/logout">Logout</a>
+  <a *ngIf="!userService.user" class="navbar-brand p-0" routerLink="/login">Login</a>
+  <a *ngIf="!userService.user" class="navbar-brand p-0" routerLink="/register">Register</a>
+  <a *ngIf="userService.user" class="navbar-brand p-0 ml-5 pl-5" style="cursor: pointer;" (click)="logout()">Logout</a>
 </nav>
 
 <div class="container text-center">
