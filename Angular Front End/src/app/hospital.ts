@@ -1,27 +1,21 @@
+import {Address} from './user';
+
 export class Hospital {
     id: number;
     name: string;
-    address: string;
-    distance: number;
-    treatments: [InjuryTreatment];
+    latitude: number;
+    longitude: number;
+    address: Address;
 
-    constructor(id: number, name: string, address: string, distance: number, treatements: [InjuryTreatment]) {
+    constructor(id: number, name: string,
+        latitude: number, longitude: number, address: Address) {
         this.id = id;
         this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.address = address;
-        this.distance = distance;
-        this.treatments = treatements;
     }
-
-    getTotalCost(): number {
-        let total = 0;
-
-        for (let i = 0; i < this.treatments.length; i++) {
-            total += this.treatments[i].cost;
-        }
-
-        return total;
-    }
+    
 }
 
 export class InjuryTreatment {
