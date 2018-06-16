@@ -1,3 +1,6 @@
+import { Insurance } from './insurance';
+import { Address } from './address';
+
 export class User {
     id: number;
     email: string;
@@ -12,16 +15,4 @@ export class User {
         this.address = new Address();
         this.insurance = new Insurance;
     }
-}
-
-export class Address {
-    address: string;
-    zip: string;
-    state: string;
-    city: string;
-}
-
-export class Insurance {
-    id: number;
-    name: string;
 }
