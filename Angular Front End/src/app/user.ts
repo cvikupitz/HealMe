@@ -16,7 +16,7 @@ export class User {
 
 export class Address {
     address: string;
-    zipcode: string;
+    zip: string;
     state: string;
     city: string;
 }
