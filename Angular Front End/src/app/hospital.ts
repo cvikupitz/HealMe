@@ -1,4 +1,4 @@
-import {Address} from './user';
+import { Address } from './user';
 
 export class Hospital {
     id: number;
@@ -15,7 +15,7 @@ export class Hospital {
         this.longitude = longitude;
         this.address = address;
     }
-    
+
 }
 
 export class InjuryTreatment {
