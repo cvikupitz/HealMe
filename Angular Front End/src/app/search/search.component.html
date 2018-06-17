@@ -6,33 +6,36 @@
       <div class="input-group-prepend">
         <label class="input-group-text"> Injury/Ailement</label>
       </div>
-      <select [(ngModel)]="injury" class="custom-select pr-5" name="injury">
+      <select [(ngModel)]="injury" class="custom-select pr-5" name="injury" id="ailment">
         <option *ngFor="let i of injuries" [ngValue]="i">{{i}}</option>
       </select>
     </div>
 
     <div class="input-group mb-1">
       <div class="input-group-prepend">
-        <label class="input-group-text"> Maximum maxCost</label>
+        <label class="input-group-text"> Maximum Cost</label>
       </div>
-      <input [(ngModel)]="maxCost" placeholder="(optional)" class="form-control" name="maxCost">
+      <input [(ngModel)]="maxCost" placeholder="(optional)" class="form-control" name="maxCost" id="maxCostInput">
     </div>
 
-    <div class="input-group mb-1">
+  <div class="input-group mb-1">
+    <div class="input-group-prepend">
+      <label class="input-group-text">
+          <input type="radio" name="distance" id="zipcodeRadio"> Zipcode</label>
+    </div>
+    <input placeholder="(optional)" class="form-control" name="zipcode" id="zipcodeInput">
+  </div>
+
+  <div class="input-group mb-1">
       <div class="input-group-prepend">
-        <label class="input-group-text">Maximum distance</label>
+        <label class="input-group-text">
+            <input type="radio" name="distance" id="addressRadio"> Address</label>
       </div>
-      <input input [(ngModel)]="maxDistance" placeholder="(optional)" class="form-control" name="maxDistance">
+      <input placeholder="(optional)" class="form-control" name="address" id="addressInput">
     </div>
-
-    <div class="input-group mb-1">
-      <div class="input-group-prepend">
-        <label for="zipvalidation" class="input-group-text">Zipcode</label>
-      </div>
-      <input input [(ngModel)]="zipcode" class="form-control" id="zipvalidation" placeholder="Zipcode" required name="zipcode">
-      <div *ngIf="invalidZipcode" class="text-danger ml-auto">Please provide a valid zip.</div>
+    <div>
+        <input type="range" id="radiusSlider"  min="1" max="15" value="8">
     </div>
-
     <br>
     <input type="submit" class="btn-primary btn mx-auto d-block" value="Submit">
 
