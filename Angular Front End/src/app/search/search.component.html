@@ -18,26 +18,37 @@
       <input [(ngModel)]="maxCost" placeholder="(optional)" class="form-control" name="maxCost" id="maxCostInput">
     </div>
 
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <label class="input-group-text">
-          <input type="radio" name="distance" id="zipcodeRadio"> Zipcode</label>
-    </div>
-    <input placeholder="(optional)" class="form-control" name="zipcode" id="zipcodeInput">
-  </div>
-
-  <div class="input-group mb-1">
+    <div class="input-group mb-1">
       <div class="input-group-prepend">
         <label class="input-group-text">
-            <input type="radio" name="distance" id="addressRadio"> Address</label>
+          <input type="radio" (change)="searchModeChange('zip')" name="searchMode" value="zip" id="zipcodeRadio" checked>&nbsp;Zipcode</label>
       </div>
-      <input placeholder="(optional)" class="form-control" name="address" id="addressInput">
+      <input [(ngModel)]="zipcode" [attr.placeholder]="searchMode=='zip'?'Zipcode':null" [attr.disabled]="searchMode=='zip'?null:''"
+        class="form-control " name="zipcode
+        " id="zipcodeInput ">
     </div>
-    <div>
-        <input type="range" id="radiusSlider"  min="1" max="15" value="8">
+
+    <div class="input-group mb-1 ">
+      <div class="input-group-prepend ">
+        <label class="input-group-text ">
+          <input type="radio" (change)="searchModeChange('address')" name="searchMode" value="address " id="addressRadio ">&nbsp;Address</label>
+      </div>
+      <input [(ngModel)]="address" [attr.placeholder]="searchMode=='address'?'Address':null" [attr.disabled]="searchMode=='address'?null:''"
+        class="form-control " name="address" id="addressInput ">
+    </div>
+    <div class="input-group mb-1" *ngIf="searchMode=='address'">
+      <div class="input-group-prepend">
+        <label class="input-group-text">Max distance: {{maxDistance > 15 ?'none': maxDistance + ' mi' }}</label>
+      </div>
+      <input type="range" [(ngModel)]="maxDistance" name="maxD" id="radiusSlider" min="1" max="16" value="8" class="mx-auto">
+    </div>
+
+    <div *ngIf="submitError" class="text-danger">
+      Please enter a location.
     </div>
     <br>
-    <input type="submit" class="btn-primary btn mx-auto d-block" value="Submit">
+
+    <input type="submit" class="btn-primary btn mx-auto d-block " value="Submit ">
 
   </form>
 </div>

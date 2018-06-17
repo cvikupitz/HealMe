@@ -14,7 +14,11 @@ export class SearchComponent implements OnInit {
   injury = 'Broken leg';
   maxCost: number;
   zipcode = '';
-  maxDistance: number;
+  maxDistance = 8;
+  address = '';
+
+  submitError = false;
+  searchMode = 'zip';
 
   injuries: string[] = [
     'Broken leg',
@@ -31,46 +35,55 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     $('#searchForm').submit((e) => this.submit(e));
-    $('#zipcodeRadio').click(() => this.toggleOther('#zipcodeInput', '#addressInput'));
-    $('#addressRadio').click(() => this.toggleOther('#addressInput', '#zipcodeInput'));
 
-    if (this.userService.user) { //user is logged in
-      let userAddress = this.userService.user.address;
+    if (this.userService.user) {
+      const userAddress = this.userService.user.address;
       $('#addressInput').val(`${userAddress.address} ${userAddress.city}, ${userAddress.state}`);
     }
   }
 
   submit(e) {
 
-    this.invalidZipcode = !(this.zipcode.length === 0 ||
-      (this.zipcode.length === 5 && this.zipcode.match('[0-9][0-9][0-9][0-9][0-9]') != null));
+    const zipError = !(this.zipcode.length === 5 && this.zipcode.match('[0-9][0-9][0-9][0-9][0-9]') != null);
 
-    if (!this.invalidZipcode) {
-      let urlPattern = 'results';
-      if ($('#zipcodeRadio').is(':checked')) {
-        urlPattern += `?zip=${$('#zipcodeInput').val()}&ailment=${$('#ailment option:selected').text()}&cost=${$('#maxCostInput').val()}`;
-        console.log(urlPattern);
+    this.submitError = (this.searchMode === 'zip' && zipError) || (this.searchMode === 'address' && !this.address);
+
+    if (this.submitError) {
+      return;
+    }
+
+    let urlPattern = 'results';
+
+    if (this.searchMode === 'zip') {
+
+      urlPattern += `?zip=${this.zipcode}&ailment=${$('#ailment option:selected').text()}&cost=${this.maxCost}`;
+      this.router.navigateByUrl(urlPattern);
+      return;
+    }
+
+    if (this.searchMode === 'address') {
+
+      let lat;
+      let lng;
+      const address = $('#addressInput').val();
+
+      this.geocodingService.getCoordinates(address as string).subscribe((res) => {
+        lat = (res as any).results[0].geometry.location.lat;
+        lng = (res as any).results[0].geometry.location.lng;
+
+        urlPattern += `?latitude=${lat
+          }&longitude=${lng
+          }&radius=${this.maxDistance === 16 ? 'undefined' : this.maxDistance
+          }&ailment=${$('#ailment option:selected').text()
+          }&cost=${this.maxCost}`;
+
         this.router.navigateByUrl(urlPattern);
-      } else { //address search
-        let lat;
-        let lng;
-        let address = $('#addressInput').val();
-        this.geocodingService.getCoordinates(address as string).subscribe(
-          res => {
-            lat = (res as any).results[0].geometry.location.lat;
-            lng = (res as any).results[0].geometry.location.lng;
-            urlPattern += `?latitude=${lat}&longitude=${lng}&radius=${$('#radiusSlider').val()}&ailment=${$('#ailment option:selected').text()}&cost=${$('#maxCostInput').val()}`;
-            console.log(urlPattern)
-            this.router.navigateByUrl(urlPattern);
-          }
-        )
-      }
+      });
     }
   }
 
-  toggleOther(currId: String, otherId: String) {
-    $(currId).prop('disabled', false)
-    $(otherId).prop('disabled', true)
+  searchModeChange(value: string) {
+    this.searchMode = value;
   }
 
 }

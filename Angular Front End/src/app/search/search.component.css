@@ -12,6 +12,14 @@ label {
 }
 
 #radiusSlider {
-    width: 50%;
-    float: right;
+    cursor: pointer;
+    width: 40%;
+}
+
+#radiusSlider:disabled {
+    opacity: 0;
+}
+
+.disabled {
+    opacity: 0;
 }
