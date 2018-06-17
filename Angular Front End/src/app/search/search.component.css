@@ -10,3 +10,8 @@
 label {
     width: 175px;
 }
+
+#radiusSlider {
+    width: 50%;
+    float: right;
+}
