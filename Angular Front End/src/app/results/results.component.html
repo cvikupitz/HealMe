@@ -1,4 +1,9 @@
-<div id="resultsTableStart" class="mt-5">
+<div class="mt-5" *ngIf="loaded && hospitals.length == 0">
+  <h1>Sorry</h1>
+  We couldn't find a hospital in your area.
+</div>
+
+<div *ngIf="loaded && hospitals.length > 0" id="resultsTableStart" class="mt-5">
 
   <table id="results-table" class="table table-bordered table-hover text-center">
     <thead>
@@ -6,28 +11,28 @@
         <td></td>
         <td>Hospital</td>
         <td>Address</td>
-        <td id="distanceHeader" style="min-width: 6rem">
+        <td id="distanceHeader" style="min-width: 6rem" *ngIf="mode!='zip'">
           Distance
           <img *ngIf="check('distanceHeader', 'sorting_asc') || check('distanceHeader', 'sorting')" src="assets/glyphicons-213-arrow-down.png"
             style="height: 0.5rem; width: 0.5rem;">
           <img *ngIf="check('distanceHeader', 'sorting_desc') || check('distanceHeader', 'sorting')" src="assets/glyphicons-213-arrow-down.png"
             src="assets/glyphicons-214-arrow-up.png" style="height: 0.5rem; width: 0.5rem;">
         </td>
-        <td *ngFor="let injury of injuries" id="{{injury.replace(' ', '')}}Header" style="min-width: 6rem">
+        <!-- <td *ngFor="let injury of injuries" id="{{injury.replace(' ', '')}}Header" style="min-width: 6rem">
           {{injury}}
           <img *ngIf="check(injury.replace(' ', '') + 'Header', 'sorting_asc') || check(injury.replace(' ', '') + 'Header', 'sorting')"
             src="assets/glyphicons-213-arrow-down.png" style="height: 0.5rem; width: 0.5rem;">
           <img *ngIf="check(injury.replace(' ', '') + 'Header', 'sorting_desc') || check(injury.replace(' ', '') + 'Header', 'sorting')"
             src="assets/glyphicons-213-arrow-down.png" src="assets/glyphicons-214-arrow-up.png" style="height: 0.5rem; width: 0.5rem;">
-        </td>
+        </td> -->
       </tr>
     </thead>
     <tbody style="cursor:pointer">
       <tr *ngFor="let h of hospitals">
         <td>{{h.id}}</td>
         <td>{{h.name}}</td>
-        <td>{{h.address}}</td>
-        <td>{{h.distance}}mi</td>
+        <td>{{h.address.address}}, {{h.address.city}} {{h.address.state}}, {{h.address.zip}}</td>
+        <td *ngIf="h.distance != undefined">{{formatDistance(h.distance)}} mi</td>
         <td *ngFor="let t of h.treatments">${{t.cost}}</td>
       </tr>
     </tbody>

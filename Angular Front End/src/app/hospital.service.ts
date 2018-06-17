@@ -12,10 +12,15 @@ export class HospitalService {
   constructor(private http: HttpClient) { }
 
   getByZipcode(zipcode: string): Observable<Hospital[]> {
-    return this.http.get<Hospital[]>(`/springData/hospitalsByAddressZip?zip=${zipcode}`);
+    return this.http.get<Hospital[]>(`http://localhost:8081/springData/hospitalsByAddressZip?zip=${zipcode}`);
   }
 
   getByRadius(lat: number, lon: number, radius: number): Observable<Hospital[]> {
+
+    lat = Number(lat);
+    lon = Number(lon);
+    radius = Number(radius);
+
     const latDiff = radius / 69;
     const lonDiff = radius / Math.abs((Math.cos(lat) * 69));
 

@@ -65,9 +65,10 @@ export class SearchComponent implements OnInit {
 
       let lat;
       let lng;
-      const address = $('#addressInput').val();
 
-      this.geocodingService.getCoordinates(address as string).subscribe((res) => {
+      this.geocodingService.getCoordinates(this.address).subscribe((res) => {
+        console.log(res);
+
         lat = (res as any).results[0].geometry.location.lat;
         lng = (res as any).results[0].geometry.location.lng;
 
