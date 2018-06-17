@@ -6,6 +6,7 @@ export class Hospital {
     latitude: number;
     longitude: number;
     address: Address;
+    distance: number;
 
     constructor(id: number, name: string,
         latitude: number, longitude: number, address: Address) {
