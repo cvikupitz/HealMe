@@ -16,6 +16,8 @@ export class ResultsComponent implements OnInit {
 
   mode: string;
 
+  distanceMagnitude: number;
+
   hospitals: Hospital[] = [
   ];
 
@@ -51,6 +53,14 @@ export class ResultsComponent implements OnInit {
     this.hs.getByRadius(params.latitude, params.longitude, params.radius === 'undefined' ? 100 : params.radius).subscribe((hospitals) => {
       this.hospitals = hospitals;
       this.loaded = true;
+
+      hospitals.forEach((hospital) => {
+        const magnitude = Math.trunc(Math.log10(hospital.distance));
+        if (!this.distanceMagnitude || magnitude > this.distanceMagnitude) {
+          this.distanceMagnitude = magnitude;
+        }
+      });
+
       this.app.tick();
       this.dataTables();
     });
@@ -99,7 +109,7 @@ export class ResultsComponent implements OnInit {
   formatDistance(distance): string {
     distance = Number(distance);
 
-    return String(`${Math.trunc(distance)}.${Math.trunc((distance % 1) * 10)}`);
+    return String(`${String(Math.trunc(distance)).padStart(this.distanceMagnitude + 1, '0')}.${Math.trunc((distance % 1) * 10)}`);
   }
 
 }
