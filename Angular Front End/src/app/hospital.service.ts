@@ -12,7 +12,7 @@ export class HospitalService {
   constructor(private http: HttpClient) { }
 
   getByZipcode(zipcode: string): Observable<Hospital[]> {
-    return this.http.get<Hospital[]>(`http://localhost:8081/springData/hospitalsByAddressZip?zip=${zipcode}`);
+    return this.http.get<Hospital[]>(`/springData/hospitalsByAddressZip?zip=${zipcode}`);
   }
 
   getByRadius(lat: number, lon: number, radius: number): Observable<Hospital[]> {
@@ -31,7 +31,7 @@ export class HospitalService {
 
     return new Observable<Hospital[]>((observer) => {
 
-      this.http.get<Hospital[]>(`http://localhost:8081/springData/hospitalsByLatitudeBetweenAndLongitudeBetween?minLatititude=${
+      this.http.get<Hospital[]>(`/springData/hospitalsByLatitudeBetweenAndLongitudeBetween?minLatititude=${
         minLat}&maxLatititude=${
         maxLat}&minLongitude=${
         minLon}&maxLongitude=${
