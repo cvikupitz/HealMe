@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ApplicationRef } from '@angular/core';
-import { Hospital, InjuryTreatment } from '../hospital';
+import { Hospital } from '../hospital';
 import { HospitalService } from '../hospital.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -40,20 +40,30 @@ export class ResultsComponent implements OnInit {
     });
   }
 
+  filterByAilment(hospitals: Hospital[], ailment: string): Hospital[] {
+
+    return hospitals.filter((h) => {
+      h.injuryCost = h.injuryCost.filter((i) => i.injury.name === ailment);
+      return h.injuryCost.length;
+    });
+  }
+
   loadByZipcode(params) {
     this.hs.getByZipcode(params.zip).subscribe((hospitals) => {
-      this.hospitals = hospitals;
+      this.hospitals = this.filterByAilment(hospitals, params.ailment);
       this.loaded = true;
-      this.app.tick();
-      this.dataTables();
+
+      if (this.hospitals.length) {
+        this.app.tick();
+        this.dataTables();
+      }
     });
   }
 
   loadByRadius(params) {
     this.hs.getByRadius(params.latitude, params.longitude, params.radius === 'undefined' ? 100 : params.radius).subscribe((hospitals) => {
-      this.hospitals = hospitals;
+      this.hospitals = this.filterByAilment(hospitals, params.ailment);
       this.loaded = true;
-
       hospitals.forEach((hospital) => {
         const magnitude = Math.trunc(Math.log10(hospital.distance));
         if (!this.distanceMagnitude || magnitude > this.distanceMagnitude) {
@@ -61,8 +71,10 @@ export class ResultsComponent implements OnInit {
         }
       });
 
-      this.app.tick();
-      this.dataTables();
+      if (this.hospitals.length) {
+        this.app.tick();
+        this.dataTables();
+      }
     });
   }
 

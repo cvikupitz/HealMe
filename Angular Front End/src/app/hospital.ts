@@ -7,6 +7,7 @@ export class Hospital {
     longitude: number;
     address: Address;
     distance: number;
+    injuryCost: InjuryCost[];
 
     constructor(id: number, name: string,
         latitude: number, longitude: number, address: Address) {
@@ -19,12 +20,13 @@ export class Hospital {
 
 }
 
-export class InjuryTreatment {
-    injury: string;
+export class InjuryCost {
+    id: number;
+    injury: Injury;
     cost: number;
+}
 
-    constructor(injury: string, cost: number) {
-        this.injury = injury;
-        this.cost = cost;
-    }
+export class Injury {
+    id: number;
+    name: string;
 }

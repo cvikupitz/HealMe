@@ -11,7 +11,7 @@ import { GeocodingService } from '../geocoding.service';
 })
 export class SearchComponent implements OnInit {
 
-  injury = 'Broken leg';
+  injury = 'laceration';
   maxCost: number;
   zipcode = '';
   maxDistance = 8;
@@ -21,12 +21,11 @@ export class SearchComponent implements OnInit {
   searchMode = 'zip';
 
   injuries: string[] = [
-    'Broken leg',
-    'Compound fracture',
-    'Repatitive strain injury',
-    'Burn, 1st degree',
-    'Burn, 2nd degree',
-    'Burn, 3rd degree'
+    'migraine',
+    '1st degree burn',
+    'common cold',
+    'stomach pains',
+    'laceration'
   ];
 
   invalidZipcode = false;
@@ -38,7 +37,7 @@ export class SearchComponent implements OnInit {
 
     if (this.userService.user) {
       const userAddress = this.userService.user.address;
-      $('#addressInput').val(`${userAddress.address} ${userAddress.city}, ${userAddress.state}`);
+      this.address = `${userAddress.address} ${userAddress.city}, ${userAddress.state}`;
     }
   }
 
