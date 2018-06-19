@@ -1,4 +1,4 @@
-import { Address } from './user';
+import { Address } from './address';
 
 export class Hospital {
     id: number;
