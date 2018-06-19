@@ -40,17 +40,17 @@ export class ResultsComponent implements OnInit {
     });
   }
 
-  filterByAilment(hospitals: Hospital[], ailment: string): Hospital[] {
+  filterByAilment(hospitals: Hospital[], ailment: string, maxCost: any): Hospital[] {
 
     return hospitals.filter((h) => {
-      h.injuryCost = h.injuryCost.filter((i) => i.injury.name === ailment);
+      h.injuryCost = h.injuryCost.filter((i) => i.injury.name === ailment && (maxCost === 'undefined' || i.cost <= maxCost));
       return h.injuryCost.length;
     });
   }
 
   loadByZipcode(params) {
     this.hs.getByZipcode(params.zip).subscribe((hospitals) => {
-      this.hospitals = this.filterByAilment(hospitals, params.ailment);
+      this.hospitals = this.filterByAilment(hospitals, params.ailment, params.cost);
       this.loaded = true;
 
       if (this.hospitals.length) {
@@ -62,7 +62,7 @@ export class ResultsComponent implements OnInit {
 
   loadByRadius(params) {
     this.hs.getByRadius(params.latitude, params.longitude, params.radius === 'undefined' ? 100 : params.radius).subscribe((hospitals) => {
-      this.hospitals = this.filterByAilment(hospitals, params.ailment);
+      this.hospitals = this.filterByAilment(hospitals, params.ailment, params.cost);
       this.loaded = true;
 
       this.hospitals.forEach((hospital) => {
