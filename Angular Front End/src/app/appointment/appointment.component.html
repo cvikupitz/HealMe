@@ -1,0 +1,15 @@
+<div class="mx-auto hermes">
+  <h4>{{hospitalName}}</h4>
+  <p>
+    Injury/Ailment: {{injury}}
+  </p>
+  <p>
+    Available Times:
+    <select class="custom-select" id="insuranceSelect">
+      <option class="form-control" *ngFor="let time of times" [ngValue]="time">
+        {{time}}
+      </option>
+    </select>
+  </p>
+  <input type="submit" class="btn-primary btn mx-auto d-block mt-2" value="Submit">
+</div>
