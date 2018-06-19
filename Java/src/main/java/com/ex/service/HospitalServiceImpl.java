@@ -3,29 +3,33 @@ package com.ex.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ex.beans.Hospital;
 import com.ex.repository.HospitalRepository;
 
 @Service("hospitalService")
-@Transactional
+@Transactional(propagation=Propagation.REQUIRED)
 public class HospitalServiceImpl implements HospitalService {
 
 	@Autowired
 	private HospitalRepository repo;
-
+	
 	@Override
 	public List<Hospital> findByAddressZip(String zip) {
-
-		return repo.findAll().stream().filter(
-			zc -> zc.getAddress().getZip().equals(zip)
-		).collect(Collectors.toList());
+		return repo.findByAddressZip(zip);
 	}
 
+	@Override
+	public List<Hospital> findByLatitudeBetweenAndLongitudeBetween(double minLatititude, double maxLatititude,
+			double minLongitude, double maxLongitude) {
+		
+		return repo.findByLatitudeBetweenAndLongitudeBetween(minLatititude, maxLatititude, minLongitude, maxLongitude);
+	}
+	
 	protected static double distanceBetween(
 			double lat1, double lon1, double lat2, double lon2) {
 
@@ -49,12 +53,5 @@ public class HospitalServiceImpl implements HospitalService {
 					latitude, longitude, h.getLatitude(), h.getLongitude()) <= radius)
 			).collect(Collectors.toList());
 	}
-
-	@Override
-	public List<Hospital> findByLatitudeBetweenAndLongitudeBetween(double minLatititude, double maxLatititude,
-			double minLongitude, double maxLongitude) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }
