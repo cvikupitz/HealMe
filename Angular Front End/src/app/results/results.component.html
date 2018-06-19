@@ -19,7 +19,7 @@
             src="assets/glyphicons-214-arrow-up.png" style="height: 0.5rem; width: 0.5rem;">
         </td>
         <td *ngFor="let injury of injuries" id="{{injury.replace(' ', '')}}Header" style="min-width: 6rem">
-          {{injury}}
+          {{injury | titlecase}} Cost
           <img *ngIf="check(injury.replace(' ', '') + 'Header', 'sorting_asc') || check(injury.replace(' ', '') + 'Header', 'sorting')"
             src="assets/glyphicons-213-arrow-down.png" style="height: 0.5rem; width: 0.5rem;">
           <img *ngIf="check(injury.replace(' ', '') + 'Header', 'sorting_desc') || check(injury.replace(' ', '') + 'Header', 'sorting')"

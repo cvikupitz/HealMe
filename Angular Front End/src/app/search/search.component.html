@@ -31,10 +31,15 @@
     <div class="input-group mb-1 ">
       <div class="input-group-prepend ">
         <label class="input-group-text ">
-          <input type="radio" (change)="searchModeChange('address')" name="searchMode" value="address " id="addressRadio ">&nbsp;Address</label>
+          <input type="radio" (change)="searchModeChange('address')" name="searchMode" value="address " id="addressRadio ">&nbsp;
+          <span *ngIf="!geolocationString">Address</span>
+          <span *ngIf="geolocationString">Location</span>
+        </label>
       </div>
-      <input [(ngModel)]="address" [attr.placeholder]="searchMode=='address'?'Address':null" [attr.disabled]="searchMode=='address'?null:''"
+      <input *ngIf="!geolocationString" [(ngModel)]="address" [attr.placeholder]="searchMode=='address'?'Address':null" [attr.disabled]="searchMode=='address'?null:''"
         class="form-control " name="address" id="addressInput ">
+      <input *ngIf="geolocationString" [(ngModel)]="geolocationString" readonly [attr.placeholder]="searchMode=='address'?'Address':null"
+        [attr.disabled]="searchMode=='address'?null:''" class="form-control " name="address" id="addressInput ">
     </div>
     <div class="input-group mb-1" *ngIf="searchMode=='address'">
       <div class="input-group-prepend">

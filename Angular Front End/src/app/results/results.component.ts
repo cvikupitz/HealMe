@@ -64,7 +64,8 @@ export class ResultsComponent implements OnInit {
     this.hs.getByRadius(params.latitude, params.longitude, params.radius === 'undefined' ? 100 : params.radius).subscribe((hospitals) => {
       this.hospitals = this.filterByAilment(hospitals, params.ailment);
       this.loaded = true;
-      hospitals.forEach((hospital) => {
+
+      this.hospitals.forEach((hospital) => {
         const magnitude = Math.trunc(Math.log10(hospital.distance));
         if (!this.distanceMagnitude || magnitude > this.distanceMagnitude) {
           this.distanceMagnitude = magnitude;
@@ -80,27 +81,20 @@ export class ResultsComponent implements OnInit {
 
   dataTables() {
 
-    if (this.mode === 'radius') {
-      const cols = [];
+    const cols = [];
 
-      for (let i = 0; i < 3 + this.injuries.length; i++) {
-        cols[i] = { 'orderable': (i === 3) };
-      }
+    const columns = 3 + this.injuries.length + (this.mode === 'radius' ? 1 : 0);
 
-      $('#results-table').DataTable({
-        paging: false,
-        info: false,
-        order: [[3, 'asc']],
-        columns: cols
-      });
-    } else {
-      $('#results-table').DataTable({
-        paging: false,
-        info: false,
-        ordering: false,
-      });
+    for (let i = 0; i < columns; i++) {
+      cols[i] = { 'orderable': (i >= 3) };
     }
 
+    $('#results-table').DataTable({
+      paging: false,
+      info: false,
+      order: [[3, 'asc']],
+      columns: cols
+    });
 
     const searchBar = $('#results-table_filter');
     const table = $('#results-table');
