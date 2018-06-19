@@ -1,5 +1,7 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Hospital, InjuryTreatment } from '../hospital';
+import { Component, OnInit, ElementRef, ApplicationRef } from '@angular/core';
+import { Hospital } from '../hospital';
+import { HospitalService } from '../hospital.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-results',
@@ -10,63 +12,110 @@ export class ResultsComponent implements OnInit {
 
   loaded = false;
 
-  injuries = ['Broken Bone'];
+  injuries = [];
+
+  mode: string;
+
+  distanceMagnitude: number;
 
   hospitals: Hospital[] = [
-    new Hospital(1, 'Reston Hospital Center', '1850 Town Center Pkwy, Reston, VA 20190',
-      1.0, [new InjuryTreatment('Broken Bone', 241)]),
-
-    new Hospital(2, 'Reston Medical Center', '1890 Metro Center Dr, Reston, VA 20190',
-      0.5, [new InjuryTreatment('Broken Bone', 234)]),
-
-    new Hospital(3, 'Inova Fair Oaks Hospital', '3600 Joseph Siewick Dr, Fairfax, VA 22033',
-      5.0, [new InjuryTreatment('Broken Bone', 199)]),
-
-    new Hospital(4, 'Inova Loudoun Hospital', '44045 Riverside Pkwy, Leesburg, VA 20176',
-      9.8, [new InjuryTreatment('Broken Bone', 313)])
   ];
 
-  constructor(private el: ElementRef) {
-  }
+  constructor(private app: ApplicationRef, private el: ElementRef, private hs: HospitalService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    const c = this;
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.injuries.push(params.ailment);
 
-    window.onload = function () {
-
-      const cols = [];
-
-      for (let i = 0; i < 4 + c.injuries.length; i++) {
-        cols[i] = { 'orderable': (i >= 3) };
+      if (params.zip) {
+        this.mode = 'zip';
+        this.loadByZipcode(params);
       }
 
-      console.log(cols);
+      if (params.radius) {
+        this.mode = 'radius';
+        this.loadByRadius(params);
+      }
 
-      $('#results-table').DataTable({
-        paging: false,
-        info: false,
-        order: [[3, 'asc']],
-        columns: cols
+    });
+  }
+
+  filterByAilment(hospitals: Hospital[], ailment: string, maxCost: any): Hospital[] {
+
+    return hospitals.filter((h) => {
+      h.injuryCost = h.injuryCost.filter((i) => i.injury.name === ailment && (maxCost === 'undefined' || i.cost <= maxCost));
+      return h.injuryCost.length;
+    });
+  }
+
+  loadByZipcode(params) {
+    this.hs.getByZipcode(params.zip).subscribe((hospitals) => {
+      this.hospitals = this.filterByAilment(hospitals, params.ailment, params.cost);
+      this.loaded = true;
+
+      if (this.hospitals.length) {
+        this.app.tick();
+        this.dataTables();
+      }
+    });
+  }
+
+  loadByRadius(params) {
+    this.hs.getByRadius(params.latitude, params.longitude, params.radius === 'undefined' ? 100 : params.radius).subscribe((hospitals) => {
+      this.hospitals = this.filterByAilment(hospitals, params.ailment, params.cost);
+      this.loaded = true;
+
+      this.hospitals.forEach((hospital) => {
+        const magnitude = Math.trunc(Math.log10(hospital.distance));
+        if (!this.distanceMagnitude || magnitude > this.distanceMagnitude) {
+          this.distanceMagnitude = magnitude;
+        }
       });
 
-
-      const searchBar = $('#results-table_filter');
-      const table = $('#results-table');
-      const start = $('#resultsTableStart');
-
-      start[0].appendChild(searchBar[0]);
-      start[0].appendChild(table[0]);
-
-      searchBar[0].style.width = '';
-      table[0].style.width = '';
-
-
-    };
+      if (this.hospitals.length) {
+        this.app.tick();
+        this.dataTables();
+      }
+    });
   }
+
+  dataTables() {
+
+    const cols = [];
+
+    const columns = 3 + this.injuries.length + (this.mode === 'radius' ? 1 : 0);
+
+    for (let i = 0; i < columns; i++) {
+      cols[i] = { 'orderable': (i >= 3) };
+    }
+
+    $('#results-table').DataTable({
+      paging: false,
+      info: false,
+      order: [[3, 'asc']],
+      columns: cols
+    });
+
+    const searchBar = $('#results-table_filter');
+    const table = $('#results-table');
+    const start = $('#resultsTableStart');
+
+    start[0].appendChild(searchBar[0]);
+    start[0].appendChild(table[0]);
+
+    searchBar[0].style.width = '';
+    table[0].style.width = '';
+  }
+
 
   check(id: string, cls: string): boolean {
     return $(`#${id}`).hasClass(cls);
   }
 
+  formatDistance(distance): string {
+    distance = Number(distance);
+
+    return String(`${String(Math.trunc(distance)).padStart(this.distanceMagnitude + 1, '0')}.${Math.trunc((distance % 1) * 10)}`);
+  }
 
 }

@@ -1,16 +1,16 @@
 package com.ex.service;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ex.beans.User;
 import com.ex.repository.UserRepository;
 import com.ex.util.Hash;
 
 @Service("userService")
-@Transactional
+@Transactional(propagation=Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
 	@Autowired

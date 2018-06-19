@@ -6,35 +6,54 @@
       <div class="input-group-prepend">
         <label class="input-group-text"> Injury/Ailement</label>
       </div>
-      <select [(ngModel)]="injury" class="custom-select pr-5" name="injury">
+      <select [(ngModel)]="injury" class="custom-select pr-5" name="injury" id="ailment">
         <option *ngFor="let i of injuries" [ngValue]="i">{{i}}</option>
       </select>
     </div>
 
     <div class="input-group mb-1">
       <div class="input-group-prepend">
-        <label class="input-group-text"> Maximum maxCost</label>
+        <label class="input-group-text"> Maximum Cost</label>
       </div>
-      <input [(ngModel)]="maxCost" placeholder="(optional)" class="form-control" name="maxCost">
+      <input [(ngModel)]="maxCost" placeholder="(optional)" class="form-control" name="maxCost" id="maxCostInput">
     </div>
 
     <div class="input-group mb-1">
       <div class="input-group-prepend">
-        <label class="input-group-text">Maximum distance</label>
+        <label class="input-group-text">
+          <input type="radio" (change)="searchModeChange('zip')" name="searchMode" value="zip" id="zipcodeRadio" checked>&nbsp;Zipcode</label>
       </div>
-      <input input [(ngModel)]="maxDistance" placeholder="(optional)" class="form-control" name="maxDistance">
+      <input [(ngModel)]="zipcode" [attr.placeholder]="searchMode=='zip'?'Zipcode':null" [attr.disabled]="searchMode=='zip'?null:''"
+        class="form-control " name="zipcode
+        " id="zipcodeInput ">
     </div>
 
-    <div class="input-group mb-1">
+    <div class="input-group mb-1 ">
+      <div class="input-group-prepend ">
+        <label class="input-group-text ">
+          <input type="radio" (change)="searchModeChange('address')" name="searchMode" value="address " id="addressRadio ">&nbsp;
+          <span *ngIf="!geolocationString">Address</span>
+          <span *ngIf="geolocationString">Location</span>
+        </label>
+      </div>
+      <input *ngIf="!geolocationString" [(ngModel)]="address" [attr.placeholder]="searchMode=='address'?'Address':null" [attr.disabled]="searchMode=='address'?null:''"
+        class="form-control " name="address" id="addressInput ">
+      <input *ngIf="geolocationString" [(ngModel)]="geolocationString" readonly [attr.placeholder]="searchMode=='address'?'Address':null"
+        [attr.disabled]="searchMode=='address'?null:''" class="form-control " name="address" id="addressInput ">
+    </div>
+    <div class="input-group mb-1" *ngIf="searchMode=='address'">
       <div class="input-group-prepend">
-        <label for="zipvalidation" class="input-group-text">Zipcode</label>
+        <label class="input-group-text">Max distance: {{maxDistance > 15 ?'none': maxDistance + ' mi' }}</label>
       </div>
-      <input input [(ngModel)]="zipcode" class="form-control" id="zipvalidation" placeholder="Zipcode" required name="zipcode">
-      <div *ngIf="invalidZipcode" class="text-danger ml-auto">Please provide a valid zip.</div>
+      <input type="range" [(ngModel)]="maxDistance" name="maxD" id="radiusSlider" min="1" max="16" value="8" class="mx-auto">
     </div>
 
+    <div *ngIf="submitError" class="text-danger">
+      Please enter a location.
+    </div>
     <br>
-    <input type="submit" class="btn-primary btn mx-auto d-block" value="Submit">
+
+    <input type="submit" class="btn-primary btn mx-auto d-block " value="Submit ">
 
   </form>
 </div>
