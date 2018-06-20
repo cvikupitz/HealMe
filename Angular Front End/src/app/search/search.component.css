@@ -23,3 +23,11 @@ label {
 .disabled {
     opacity: 0;
 }
+
+.submit:hover {
+    text-decoration: underline;
+}
+
+.input-group {
+    margin-top: 0.5rem;
+}

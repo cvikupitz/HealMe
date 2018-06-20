@@ -1,4 +1,4 @@
-<div style="width: 450px" class="mx-auto hermes">
+<div class="mx-auto text-white pl-3 pr-3 mt-5 pt-3 rounded" style="width: 500px; height: 500px; background-color: rgba(22, 10, 1, 0.75)">
   <!--TODO: May want to use bootstrap .col instead of static px for column width for responsiveness -->
 
   <div style="height: 2rem;"></div>
@@ -105,7 +105,7 @@
 
       <label *ngIf="!registerForm.valid && submitted" class="text-danger text-center">Please completely fill out the above forms</label>
       <label *ngIf="usernameOrEmailExists" class="text-danger text-center">That username or email already exists</label>
-      <input type="submit" id="registerBtn" class="btn-primary btn mx-auto d-block mt-5" value="Register">
+      <input type="submit" id="registerBtn" class="submit btn-primary btn mx-auto d-block mt-5" value="Register">
     </form>
   </div>
 </div>

@@ -1,8 +1,8 @@
-<div style="width: 450px" class="p-5 mx-auto hermes">
+<div style="width: 450px; height: 500px; background-color: rgba(22, 10, 1, 0.75)" class="p-5 pt-3 pb-3 mt-5 mx-auto text-white rounded">
 
   <form class="mt-5 standalone" id="searchForm" action="results">
 
-    <div class="input-group mb-1">
+    <div class="input-group">
       <div class="input-group-prepend">
         <label class="input-group-text"> Injury/Ailement</label>
       </div>
@@ -11,14 +11,14 @@
       </select>
     </div>
 
-    <div class="input-group mb-1">
+    <div class="input-group">
       <div class="input-group-prepend">
         <label class="input-group-text"> Maximum Cost</label>
       </div>
       <input [(ngModel)]="maxCost" placeholder="(optional)" class="form-control" name="maxCost" id="maxCostInput">
     </div>
 
-    <div class="input-group mb-1">
+    <div class="input-group">
       <div class="input-group-prepend">
         <label class="input-group-text">
           <input type="radio" (change)="searchModeChange('zip')" name="searchMode" value="zip" id="zipcodeRadio" checked>&nbsp;Zipcode</label>
@@ -28,7 +28,7 @@
         " id="zipcodeInput ">
     </div>
 
-    <div class="input-group mb-1 ">
+    <div class="input-group">
       <div class="input-group-prepend ">
         <label class="input-group-text ">
           <input type="radio" (change)="searchModeChange('address')" name="searchMode" value="address " id="addressRadio ">&nbsp;
@@ -45,7 +45,9 @@
       <div class="input-group-prepend">
         <label class="input-group-text">Max distance: {{maxDistance > 15 ?'none': maxDistance + ' mi' }}</label>
       </div>
-      <input type="range" [(ngModel)]="maxDistance" name="maxD" id="radiusSlider" min="1" max="16" value="8" class="mx-auto">
+      <span class="input-group-text w-50 bg-white">
+        <input type="range" [(ngModel)]="maxDistance" name="maxD" id="radiusSlider" min="1" max="16" value="8" class="w-100">
+      </span>
     </div>
 
     <div *ngIf="submitError" class="text-danger">
@@ -53,7 +55,7 @@
     </div>
     <br>
 
-    <input type="submit" class="btn-primary btn mx-auto d-block " value="Submit ">
+    <input type="submit" class="btn-primary btn mx-auto d-block submit " value="Submit ">
 
   </form>
 </div>

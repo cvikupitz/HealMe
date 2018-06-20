@@ -42,18 +42,17 @@ export class ResultsComponent implements OnInit {
         this.loadByRadius(params);
       }
 
-      //used to keep 'this' as object scope
-      let that = this;
+      // used to keep 'this' as object scope
+      const that = this;
 
-      //when table initializes, load rows with custom class 
+      // when table initializes, load rows with custom class
       $(document).on('init.dt', function () {
-        $('#results-table > tbody > tr').addClass("hospitalClickable");
-      
+        $('#results-table > tbody > tr').addClass('hospitalClickable');
+
         $('.hospitalClickable').click(function () {
-          let hospitalName = (this as any).cells[1].innerText;
-          that.router.navigate(['/appointment'], { queryParams: {hospitalName: hospitalName, ailment: params.ailment} });
-        }
-        )
+          const hospitalName = (this as any).cells[1].innerText;
+          that.router.navigate(['/appointment'], { queryParams: { hospitalName: hospitalName, ailment: params.ailment } });
+        });
       });
 
     });
@@ -112,7 +111,10 @@ export class ResultsComponent implements OnInit {
       paging: false,
       info: false,
       order: [[3, 'asc']],
-      columns: cols
+      columns: cols,
+      language: {
+        searchPlaceholder: 'Search'
+      }
     });
 
     const searchBar = $('#results-table_filter');
@@ -123,6 +125,8 @@ export class ResultsComponent implements OnInit {
     start[0].appendChild(table[0]);
 
     searchBar[0].style.width = '';
+    searchBar[0].style.color = 'transparent';
+    searchBar[0].style.textAlign = 'right';
     table[0].style.width = '';
   }
 

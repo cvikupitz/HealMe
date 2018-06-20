@@ -1,9 +1,9 @@
-<div class="mx-auto hermes">
-  <h4>{{hospitalName}}</h4>
+<div class="mx-auto text-white pl-3 pr-3 mt-5 pt-3 rounded" style="width: 500px; height: 500px; background-color: rgba(22, 10, 1, 0.75)">
+  <h4>{{hospitalName | titlecase}}</h4>
   <p>
-    Injury/Ailment: {{ailment}}
+    Injury/Ailment: {{ailment | titlecase}}
   </p>
-  <p>
+  <p *ngIf="userService.user" class="text-left">
     Available Times:
     <select class="custom-select" id="insuranceSelect">
       <option class="form-control" *ngFor="let time of times" [ngValue]="time">
@@ -11,10 +11,9 @@
       </option>
     </select>
   </p>
-  
+
   <input *ngIf="userService.user" type="submit" id="submitSuccess" class="btn-primary btn mx-auto d-block mt-2" value="Submit">
-  <input *ngIf="!userService.user" type="submit" class="btn-outline-secondary btn mx-auto d-block mt-2" value="Submit" disabled>
-  <div *ngIf="!userService.user" class="text-danger">
+  <div *ngIf="!userService.user" class="text-danger mt-5">
     You must be logged in to book an appointment.
   </div>
 </div>

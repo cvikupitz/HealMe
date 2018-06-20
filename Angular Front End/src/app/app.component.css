@@ -7,10 +7,21 @@
 
 a {
     text-decoration: underline;
+    color:white;
 }
 
 a:link, a:visited {
     color:white;
+}
+
+.logout {
+    text-decoration: underline !important;
+    color:white !important;
+}
+
+.logout:hover {
+    text-decoration: none !important;
+    cursor: pointer;
 }
 
 

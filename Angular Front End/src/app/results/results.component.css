@@ -11,3 +11,7 @@
 .sorting::after {
     content:"" !important;
 }
+
+label {
+    color: transparent;
+}

@@ -10,3 +10,7 @@ label {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.submit:hover {
+    text-decoration: underline;
+}
