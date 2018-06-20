@@ -13,6 +13,6 @@ export class User {
 
     constructor() {
         this.address = new Address();
-        this.insurance = new Insurance;
+        this.insurance = new Insurance();
     }
 }

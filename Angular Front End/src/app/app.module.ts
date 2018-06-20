@@ -11,6 +11,8 @@ import { ResultsComponent } from './results/results.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { RegisterComponent } from './register/register.component';
     HomeComponent,
     ResultsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AppointmentComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,

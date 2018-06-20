@@ -19,22 +19,23 @@ public class LoginController {
 
 	@Autowired
 	private UserService users;
-	
+
 	@RequestMapping(value="/login", method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String login(String username, String password, HttpSession session) {
-		
+
 		User u = users.login(username.toLowerCase(), password);
-		
+
 		if (u != null) {
 			session.setAttribute("user", u);
 		}
-		
+
 		return new Gson().toJson(u);
 	}
 
 	@ModelAttribute
 	public void setVaryResponseHeader(HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
-	} 
+		response.addHeader("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
+	}
 }

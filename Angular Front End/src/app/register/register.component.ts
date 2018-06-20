@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Insurance, User } from '../user';
-import { Address } from '../user';
+import { User } from '../user';
+import { Insurance } from '../insurance';
+import { Address } from '../address';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
