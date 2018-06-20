@@ -1,7 +1,7 @@
 <div class="mx-auto hermes">
   <h4>{{hospitalName}}</h4>
   <p>
-    Injury/Ailment: {{injury}}
+    Injury/Ailment: {{ailment}}
   </p>
   <p>
     Available Times:
@@ -11,5 +11,7 @@
       </option>
     </select>
   </p>
-  <input type="submit" class="btn-primary btn mx-auto d-block mt-2" value="Submit">
+  
+  <input *ngIf="userService.user" type="submit" id="submitSuccess" class="btn-primary btn mx-auto d-block mt-2" value="Submit">
+  <input *ngIf="!userService.user" type="submit" class="btn-outline-secondary btn mx-auto d-block mt-2" value="Submit" disabled>
 </div>

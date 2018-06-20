@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { UserService } from "../user.service";
 
 @Component({
   selector: 'app-appointment',
@@ -14,12 +16,32 @@ export class AppointmentComponent implements OnInit {
     "3:00 PM", "4:00 PM"
   ];
 
-  hospitalName: string;
-  injury: string;
+  
 
-  constructor() { }
+  hospitalName: string;
+  ailment: string;
+
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.hospitalName = params.hospitalName;
+      this.ailment = params.ailment;
+      if (this.userService.user) {
+      console.log(`The selected hospital was ${params.hospitalName}. The user email is ${this.userService.user.email}` );
+      } else {
+        console.log('not logged in');
+      }
+    });
   }
 
+  ngAfterViewInit() {
+    $('#submitSuccess').click(() => {
+      this.router.navigateByUrl('confirmation');
+    })
+  }
+  
+
 }
+
+

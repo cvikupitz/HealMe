@@ -1,13 +1,16 @@
 import { Component, OnInit, ElementRef, ApplicationRef } from '@angular/core';
 import { Hospital } from '../hospital';
 import { HospitalService } from '../hospital.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.css']
 })
+
+
 export class ResultsComponent implements OnInit {
 
   loaded = false;
@@ -21,10 +24,12 @@ export class ResultsComponent implements OnInit {
   hospitals: Hospital[] = [
   ];
 
-  constructor(private app: ApplicationRef, private el: ElementRef, private hs: HospitalService, private activatedRoute: ActivatedRoute) { }
+  constructor(private app: ApplicationRef, private el: ElementRef, private hs: HospitalService,
+    private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
+
       this.injuries.push(params.ailment);
 
       if (params.zip) {
@@ -36,6 +41,20 @@ export class ResultsComponent implements OnInit {
         this.mode = 'radius';
         this.loadByRadius(params);
       }
+
+      //used to keep 'this' as object scope
+      let that = this;
+
+      //when table initializes, load rows with custom class 
+      $(document).on('init.dt', function () {
+        $('#results-table > tbody > tr').addClass("hospitalClickable");
+      
+        $('.hospitalClickable').click(function () {
+          let hospitalName = (this as any).cells[1].innerText;
+          that.router.navigate(['/appointment'], { queryParams: {hospitalName: hospitalName, ailment: params.ailment} });
+        }
+        )
+      });
 
     });
   }
@@ -117,5 +136,4 @@ export class ResultsComponent implements OnInit {
 
     return String(`${String(Math.trunc(distance)).padStart(this.distanceMagnitude + 1, '0')}.${Math.trunc((distance % 1) * 10)}`);
   }
-
 }

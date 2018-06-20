@@ -5,6 +5,8 @@ import { SearchComponent } from './search/search.component';
 import { ResultsComponent } from './results/results.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 
 const routes: Routes = [
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'appointment', component: AppointmentComponent},
+  { path: 'confirmation', component: ConfirmationComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
