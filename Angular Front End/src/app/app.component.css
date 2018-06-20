@@ -5,6 +5,15 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
+a {
+    text-decoration: underline;
+}
+
+a:link, a:visited {
+    color:white;
+}
+
+
 * {
     font-family: 'Times New Roman', Times, serif;
     font-size: 12pt;

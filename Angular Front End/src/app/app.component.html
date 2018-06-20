@@ -1,7 +1,8 @@
-<nav class="navbar navbar-light bg-light">
+
+<nav class="navbar" style="background-color: transparent;">
   <a class="navbar-brand mr-5 pr-5 p-0" routerLink="/home">Home</a>
   <a class="navbar-brand mx-auto h1 mb-0 p-0" routerLink="/home"
-    style="font-family: Lucida Handwriting, Times New Roman, serif; text-decoration: underline;">
+    style="font-family: Lucida Handwriting, Times New Roman, serif;">
     Heal Me
   </a>
   <a *ngIf="!userService.user" class="navbar-brand p-0" routerLink="/login">Login</a>
@@ -10,7 +11,7 @@
 </nav>
 
 <div class="container text-center">
-  Allow us to be your saving grace™
+  <p style="color: white;">Allow us to be your saving grace™</p>
 </div>
 
 <div class="container w-75 mx-auto">
