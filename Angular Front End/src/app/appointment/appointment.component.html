@@ -5,10 +5,8 @@
   </p>
   <p *ngIf="userService.user" class="text-left">
     Available Times:
-    <select class="custom-select" id="insuranceSelect">
-      <option class="form-control" *ngFor="let time of times" [ngValue]="time">
-        {{time}}
-      </option>
+    <select [ngModel]="selectedTime" class="custom-select" id="timeSelect">
+      <option class="form-control" *ngFor="let time of times" [ngValue]="time">{{time}}</option>
     </select>
   </p>
 

@@ -8,7 +8,7 @@
   <table id="results-table" class="table p-0 rounded table-hover text-center bg-white">
     <thead>
       <tr>
-        <td></td>
+        <td class="hospital-icon"></td>
         <td>Hospital</td>
         <td>Address</td>
         <td id="distanceHeader" style="min-width: 6rem" *ngIf="mode!='zip'">
@@ -30,7 +30,7 @@
     <tbody style="cursor:pointer">
       <tr *ngFor="let h of hospitals">
         <td>
-          <img src="/assets/hospital-{{(h.id%15) + 1}}.png" class="hospital-icon"> </td>
+          <img src="assets/hospital-{{(h.id%15) + 1}}.png" class="hospital-icon"> </td>
         <td>{{h.name | titlecase}}</td>
         <td>{{h.address.address | titlecase}}, {{h.address.city | titlecase}} {{h.address.state}}, {{h.address.zip}}</td>
         <td *ngIf="h.distance != undefined">{{formatDistance(h.distance)}} mi</td>

@@ -12,7 +12,7 @@ export class ConfirmationComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.email = this.userService.user.email;
+    this.email = this.userService.user ? this.userService.user.email : 'null';
   }
 
 }

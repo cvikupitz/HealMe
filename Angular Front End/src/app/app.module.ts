@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy, PathLocationStrategy, TitleCasePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -31,7 +31,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
+  providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }, TitleCasePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
