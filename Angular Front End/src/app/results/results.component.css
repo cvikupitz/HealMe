@@ -15,3 +15,8 @@
 label {
     color: transparent;
 }
+
+.hospital-icon {
+    align: middle;
+    max-width: 100px;
+}

@@ -29,7 +29,8 @@
     </thead>
     <tbody style="cursor:pointer">
       <tr *ngFor="let h of hospitals">
-        <td>{{h.id}}</td>
+        <td>
+          <img src="/assets/hospital-{{(h.id%15) + 1}}.png" class="hospital-icon"> </td>
         <td>{{h.name | titlecase}}</td>
         <td>{{h.address.address | titlecase}}, {{h.address.city | titlecase}} {{h.address.state}}, {{h.address.zip}}</td>
         <td *ngIf="h.distance != undefined">{{formatDistance(h.distance)}} mi</td>
